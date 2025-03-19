@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="col-md-8">
+        <h1 class="text-center mb-4">Detalles de la sesión</h1>
+        
+        {% if lec.startBreak or lec.endBreak or lec.startHour or lec.endHour %}
+        <div class="card shadow-sm mb-4 border-info">
+            <div class="card-header bg-info bg-opacity-10">
+            <h5 class="text-center mb-0 text-info"><i class="bi bi-clock"></i> Información Horaria</h5>
+            </div>
+            <div class="card-body">
+            <div class="row g-3">
+            <!-- Left column for lecture times -->
+            <div class="col-md-6">
+            <div class="card h-100 border-secondary">
+                <div class="card-body bg-light bg-opacity-50">
+                <h5 class="card-title text-center mb-3 text-body"><i class="bi bi-calendar-event"></i> Horario de la Sesión</h5>
+                {% if lec.startHour %}
+                <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-primary me-2"><i class="bi bi-play-fill"></i></span>
+                <span class="text-body"><strong>Inicio:</strong> {{ lec.startHour|date:"H:i:s" }}</span>
+                </div>
+                {% endif %}
+                {% if lec.endHour %}
+                <div class="d-flex align-items-center">
+                <span class="badge bg-danger me-2"><i class="bi bi-stop-fill"></i></span>
+                <span class="text-body"><strong>Fin:</strong> {{ lec.endHour|date:"H:i:s" }}</span>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+            </div>
+            
+            <!-- Right column for break times -->
+            <div class="col-md-6">
+            <div class="card h-100 border-secondary">
+                <div class="card-body bg-light bg-opacity-50">
+                <h5 class="card-title text-center mb-3 text-body"><i class="bi bi-cup-hot"></i> Información de Pausa</h5>
+                {% if lec.startBreak %}
+                <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-primary me-2"><i class="bi bi-pause-fill"></i></span>
+                <span class="text-body"><strong>Inicio pausa:</strong> {{ lec.startBreak|date:"H:i:s" }}</span>
+                </div>
+                {% endif %}
+                {% if lec.endBreak %}
+                <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-danger me-2"><i class="bi bi-arrow-right-circle"></i></span>
+                <span class="text-body"><strong>Fin pausa:</strong> {{ lec.endBreak|date:"H:i:s" }}</span>
+                </div>
+                {% endif %}
+                {% if lec.startBreak and lec.endBreak and break_duration %}
+                <div class="d-flex align-items-center">
+                <span class="badge bg-info me-2"><i class="bi bi-stopwatch"></i></span>
+                <span class="text-body"><strong>Duración:</strong> {{ break_duration }}</span>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div id="lecture-details" class="card">
+            <div class="card-body">
+                <form method="post" action="{% url 'selectLecture' lec.id %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
+                </form>
+                <form method="post" action="{% url 'deleteLecture' lec.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100 mt-2">Borrar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

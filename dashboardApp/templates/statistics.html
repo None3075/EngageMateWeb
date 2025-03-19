@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+</head>
+<body>
+    <div class="container my-5">
+        <header class="text-center mb-4">
+            <h1 class="display-4 text-primary">Estadísticas</h1>
+        </header>
+        <main>
+            <!-- Sección 1: Total de Alumnos por Fecha -->
+            <section class="mb-5">
+                <div class="card shadow p-3">
+                    <!-- Inserta el primer gráfico -->
+                    {{ chart_div5|safe }}
+                </div>
+            </section>
+            <section class="mb-5">
+                <div class="card shadow p-3">
+                    <!-- Inserta el primer gráfico -->
+                    {{ chart_div1|safe }}
+                </div>
+            </section>
+
+            <!-- Sección 2: Promedio de Horas Trabajadas por Fecha -->
+            <section class="mb-5">
+                <div class="card shadow p-3">
+                    <!-- Inserta el segundo gráfico -->
+                    {{ chart_div2|safe }}
+                </div>
+            </section>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Sección 4: Frecuencia de Estados de Ánimo -->
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            <!-- Inserta el gráfico de pastel -->
+                            {{ chart_div3|safe }}
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <!-- Sección 5: Número de Clases por Tipo de Docencia -->
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            <!-- Inserta el gráfico de barras -->
+                            {{ chart_div4|safe }}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+{% endblock %}

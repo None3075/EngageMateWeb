@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de la clase</title>
+</head>
+<body>
+    <div class="container my-5">
+        <header class="text-center mb-4">
+            <h1 class="display-4 text-primary">Estadísticas de la clase</h1>
+        </header>
+        <main>
+            <section class="mb-5">
+                <div class="card shadow p-3">
+                    {{ chart_div_hotsup|safe }}
+                </div>
+            </section>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            {{ chart_div_temp|safe }}
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            {{ chart_div_humedad|safe }}
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            {{ chart_div_luminosidad|safe }}
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <section class="mb-5">
+                        <div class="card shadow p-3">
+                            {{ chart_div_calidad|safe }}
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+{% endblock %}

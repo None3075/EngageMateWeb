@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
+<div class="container">
+    <div class="title">
+        <img src="{% static 'images/engagematelogo.png' %}" alt="EngageMate Logo" class="logo">
+        EngageMate
+    </div>
+    <div class="subtitle">Tu asistente para la docencia</div>
+    <div class="description">
+        Bienvenido/a a la plataforma que te ayuda a entender mejor lo que sucede en tus clases y a optimizar tu práctica docente.
+    </div>
+</div>
+
+<div class="footer" style="background-color: white; color: black; padding: 10px; border-radius: 5px; position: fixed; bottom: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between;">
+    <img src="{% static 'images/ACMLogo.png' %}" alt="Aristos Campus Mundus">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        EngageMate: Advancing Classroom Interaction with Reciprocal Learning and Intelligent IoT Assistant Aristos Campus Mundus
+    </div>
+    <img src="{% static 'images/Deusto2.png' %}" alt="Deusto University">
+</div>
+{% endblock %}
+

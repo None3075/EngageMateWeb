@@ -1,0 +1,27 @@
+/* For WebKit browsers (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: black;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* For Mozilla Firefox */
+input[type="range"]::-moz-range-thumb {
+    background: rgb(4, 0, 107);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* For Microsoft Edge and IE */
+input[type="range"]::-ms-thumb {
+    background: rgb(4, 0, 107);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}

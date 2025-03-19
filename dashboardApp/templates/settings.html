@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Asignaturas</h1>
+    <div class="col-md-8 offset-md-2 card shadow p-4 mb-5 rounded">
+        <h3 class="text-center mb-4">Crear Asignatura</h3>
+        <form method="post" action="{% url 'settings' %}" class="form-horizontal">
+            {% csrf_token %}
+            {{ workHourForm.as_p }}
+            <div class="d-flex justify-content-center mt-4">
+            <button type="submit" name="workhour-submit" class="btn btn-primary mt-3">Guardar Asignatura</button>
+            </div>
+        </form>
+        <div class="my-3"></div>
+        <h3 class="text-center mb-4">Tus signaturas</h3>
+        <div class="my-2"></div>
+        {% for work_hour in work_hours %}
+            <div class="card mb-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <span>{{ work_hour }}</span>
+                    <form method="post" class="mb-0">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="deleteWorkHour">
+                        <input type="hidden" name="workHourId" value="{{ work_hour.id }}">
+                        <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No asignaturas found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

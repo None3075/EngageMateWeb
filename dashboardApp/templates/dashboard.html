@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 95%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="http://localhost:3000/d/eeb9srbxcv5z4e/test?var-userDataSource={{ user_data_source }}"></iframe>
+</body>
+</html>
+{% endblock %}

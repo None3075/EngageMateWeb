@@ -1,0 +1,64 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    padding: 200px 20px 0 20px; 
+    box-sizing: border-box;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.title {
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 3em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 1.2em;
+    margin-top: 20px;
+    max-width: 80%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.footer img {
+    height: 50px;
+}

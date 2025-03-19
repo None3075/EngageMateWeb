@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <header class="text-center mb-4">
+            <h1>Sesiones</h1>
+        </header>
+    </div>
+    <div class="row mx-3">
+        {% for lecture, result_avg in lectures_and_averages %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ lecture.fecha_asignatura }} - {{ lecture.horario }}</h5>
+                        <p class="card-text">Primera Hora: {{ lecture.notas_primera_hora }}</p>
+                        <p class="card-text">Segunda Hora: {{ lecture.notas_segunda_hora }}</p>
+                        <div class="energia-box" data-energy="{{ lecture.energia }}">
+                            Energia: {{ lecture.energia }}%
+                        </div>
+                        <div class="my-2"></div>
+                        <div class="energia-box" data-energy="{{ result_avg }}">
+                            Participación: {{ result_avg }}%
+                        </div>
+                        <a href="{% url 'selectLecture' lecture.id %}" class="btn btn-primary mt-2">Ver detalles</a>
+                        <a href="{% url 'statisticsLecture' lecture.id %}" class="btn btn-secondary mt-2">Estadisticas</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+        <a id="createButton" class="btn btn-primary btn-lg" href="{% url 'createLecture' %}">Create</a>
+    </div>
+</body>
+{% endblock %}
