@@ -1,7 +1,6 @@
 from io import StringIO
-from django import forms
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from .models import WorkHour, lecture
 from .forms import CSVUploadForm, WorkHourForm, lectureForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -15,15 +14,12 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import UserToken, UserDataSource
 import csv
 from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 import datetime
 from collections import Counter
 import plotly.graph_objs as go
 import plotly.io as pio
-import plotly.express as px
 from django.core.cache import cache
 from django.utils.timezone import now
-import os
 import glob
 
 
@@ -127,8 +123,7 @@ def lectures(request):
     result_avgs = []
     for lecture_instance in lectures:
         work_hour = lecture_instance.horario
-        if work_hour:
-            max_students = work_hour.max_students if work_hour else 0
+        max_students = work_hour.max_students if work_hour else 0
         if max_students and max_students != 0:
             # Calculate the ratio of numero_alumnos to max_students
             ratio = int((lecture_instance.numero_alumnos / max_students) * 100)
@@ -203,6 +198,24 @@ def statisticsLecture(request, id):
     # Build file path for the logged-in user's CSV file
     csv_path = f"dashboardApp/Data/{request.user.username}_lectures.csv"
     
+    # Check if the file exists, if not, create it
+    if not default_storage.exists(csv_path):
+        try:
+            with default_storage.open(csv_path, "w") as new_csv:
+                writer = csv.writer(new_csv, lineterminator='\n')
+                writer.writerow([
+                    "fechayhora", 
+                    "Media Humedad", "Max Humedad", "Min Humedad", 
+                    "Media Luminosidad", "Max Luminosidad", "Min Luminosidad", 
+                    "Media CalidadAire", "Max CalidadAire", "Min CalidadAire", 
+                    "Media Temperatura", "Max Temperatura", "Min Temperatura"
+                ])
+        except Exception as e:
+            return render(request, "statisticsLecture.html", {
+                "lec": lecture_instance,
+                "error": f"Error creating CSV: {e}"
+            })
+
     try:
         file_content = default_storage.open(csv_path, "r").read()
     except Exception as e:
@@ -346,11 +359,6 @@ def statisticsLecture(request, id):
 
     date_str = lecture_instance.fecha_asignatura.strftime("%Y%m%d")
     hour_str = lecture_instance.endHour.strftime("%H")
-    #date_str = "20250210"
-    #end_time_str = "185247"
-    # Create pattern to match files with only the hour part
-    #base_path = f"C:\\Users\\marti\\Desktop\\DeustoTech\\integracion\\version2\\logs"
-    #pattern = f"{base_path}\\metrics_{date_str}_{hour_str}*_clean\\ENQUA.csv"
     pattern = f"Data/metrics_{date_str}_{hour_str}*_clean/ENQUA.csv"
     
     # Find matching files
@@ -641,8 +649,6 @@ def statistics(request):
     fig2 = go.Figure(data=[trace2], layout=layout2)
     chart_div2 = pio.to_html(fig2, full_html=True)
 
-    promedio_alumnos = lecture.objects.aggregate(avg_alumnos=Avg('numero_alumnos'))['avg_alumnos']
-
     mood_data = (
         lecture.objects
         .values('estadoDeAnimo')
@@ -749,12 +755,6 @@ def csvs(request):
     except UserToken.DoesNotExist:
         return JsonResponse({"error": "Invalid user token"}, status=400)
 
-    if user.username == "Morelab":
-        with open('dashboardApp/data/measured_data3.csv', 'r') as file:
-            response = HttpResponse(file, content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename=lectures.csv'
-            return response
-
 @login_required
 def status(request):
     if cache.get(f"class_status_{request.user.id}") == "ongoing":
@@ -858,11 +858,6 @@ def uploadCsv(request):
                     cache.delete(cache_key_status)
                     cache.delete(cache_key_break_start)
                     cache.delete(cache_key_break_end)
-                    message = "Lecture created with recorded start and end timestamps."
-                else:
-                    message = "No start timestamp found. Cannot create lecture."
-            else:
-                message = "CSV uploaded successfully."
             # Define the path for the user's CSV file
             user_csv_path = f'dashboardApp/Data/{user.username}_lectures.csv'
             # reset reader
