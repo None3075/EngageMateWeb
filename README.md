@@ -1,69 +1,106 @@
-# DeustoTech Dashboard Project
+# EngageMate Dashboard
 
-## Overview
-This Django project is a dashboard application built on top of the project [WioMK](https://github.com/mkbaraka/WioMK), featuring data management and visualization capabilities with a Django Web server.
+![Django](https://img.shields.io/badge/Django-4.x-green.svg)
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
 
-## Prerequisites
+## Descripción General
+
+EngageMate es una aplicación de panel de control integral diseñada para mejorar la interacción en el aula con aprendizaje recíproco y asistencia inteligente de IoT. Construida con Django, esta aplicación web funciona en conjunto con el proyecto [WioMK](https://github.com/None3075/WioMK) para proporcionar análisis del aula, seguimiento de participación de estudiantes y herramientas de visualización interactiva.
+
+## Características
+
+- **Notificaciones de Estado en Tiempo Real**: Indicadores visuales del estado de la clase (en curso, en pausa, no en sesión)
+- **Visualización de Datos**: Panel de análisis para métricas de participación en el aula
+- **Autenticación de Usuario**: Sistema seguro de inicio de sesión y registro
+- **Gestión de Datos CSV**: Capacidades de importación/exportación para datos del aula
+
+## Requisitos Previos
+
 - Python 3.x
 - Django
-- Other dependencies listed in `requirements.txt`
-- **Important:** Make sure to have set up the project [WioMK](https://github.com/None3075/WioMK) running with the correct server IP and set user Tokens for the server to work properly.
+- Dependencias listadas en requirements.txt
+- **Importante**: El proyecto [WioMK](https://github.com/None3075/WioMK) debe estar configurado y funcionando con la IP de servidor correcta
 
-## Installation
+## Instalación
 
-1. Clone the repository
-```bash
-git clone https://github.com/None3075/EngageMateWeb.git
-cd DjangoProject
-```
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/None3075/EngageMateWeb.git
+   cd EngageMateWeb
+   ```
 
-2. Create a virtual environment (recommended)
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. **Crear un entorno virtual**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
 
-3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+3. **Instalar dependencias**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Set up the database
-```bash
-python manage.py makemigrations dashboardApp
-python manage.py migrate
-```
+4. **Configurar la base de datos**
+   ```bash
+   python manage.py makemigrations dashboardApp
+   python manage.py migrate
+   ```
 
-5. Create a superuser
-```bash
-python manage.py createsuperuser
-```
+5. **Crear un usuario administrador**
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-6. Set user Token
-Access the Django admin interface at http://127.0.0.1:8000/admin/ and set the user token for the superuser. The user token must be corresponding for that user WioMK user token.
+6. **Configurar el token de usuario**
+   - Accede a la interfaz de administración de Django en http://127.0.0.1:8000/admin/
+   - Establece el token de usuario para tu usuario (El valor predeterminado de WioMK es "Patata")
+   - Este token debe corresponder con tu token de usuario de WioMK
 
-## Other configuration
-1. Add your server IP to the ALLOWED_HOSTS in `settings.py` file in the `dashboardApp` directory
-2. Install and set up the [WioMK project](https://github.com/None3075/WioMK)
+## Configuración
 
-## Running the Application
+1. Añade la IP de tu servidor a `ALLOWED_HOSTS` en settings.py
+2. Asegúrate de que el [proyecto WioMK](https://github.com/None3075/WioMK) esté instalado y configurado correctamente
+
+## Ejecutar la Aplicación
+
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
-Access the application at http://127.0.0.1:8000/ or from http://[your-ip]:8000/ if you want to access it from other device on the same network.
 
-## Project Structure
-- dashboardApp - Main dashboard application
-  - models.py - Database models including Lecture, WorkHour, etc.
-  - views.py - View controllers
-  - urls.py - URL routing
-  - templates/ - HTML templates
-  - static/ - Static assets
-  - Data/ - Directory for CSV data files of each user
-- webDeustotech - Secondary application
-- Data - CSV data files for import/export
+Accede a la aplicación en:
+- Local: http://127.0.0.1:8000/
+- Red: http://[tu-ip]:8000/
 
-## Usage
-1. Log in to the admin interface at http://127.0.0.1:8000/admin/
-2. Navigate to the main dashboard
+## Estructura del Proyecto
 
+```
+EngageMateWeb/
+├── dashboardApp/            # Aplicación principal
+│   ├── models.py            # Modelos de base de datos
+│   ├── views.py             # Controladores de vistas
+│   ├── urls.py              # Enrutamiento de URL
+│   ├── templates/           # Plantillas HTML
+│   ├── static/              # CSS, JS, imágenes
+│   └── Data/                # Datos CSV específicos del usuario
+├── webDeustotech/           # Configuración del proyecto
+├── Data/                    # Archivos CSV de datos globales recibidos
+├── manage.py                # Script de administración de Django
+└── requirements.txt         # Dependencias
+```
+
+## Uso
+
+1. **Interfaz de Administración**
+   - Inicia sesión en http://127.0.0.1:8000/admin/
+   - Gestiona usuarios, permisos y datos de la aplicación
+
+2. **Sesiones**
+   - Visualiza información detallada sobre cada clase
+   - Accede a datos adicionales y gráficos sobre la información recopilada durante las clases
+   - Analiza métricas de participación de estudiantes por sesión
+   - Monitoriza patrones históricos y tendencias entre diferentes clases
+
+## Licencia
+Este proyecto está bajo la Licencia MIT. Para más detalles, consulta el archivo [LICENSE](LICENSE).
+
+Proyecto dirigido por [Oihane Gomez Carmona](https://scholar.google.es/citations?hl=es&user=ptqq8JAAAAAJ).
