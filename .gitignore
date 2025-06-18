@@ -3,6 +3,5 @@
 .github
 db.sqlite3
 Data/*
-dashboardApp/data/*
 dashboardApp/migrations/*
 dashboardApp/__pycache__/*
